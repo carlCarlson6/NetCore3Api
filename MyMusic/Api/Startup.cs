@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Core;
+using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Api
 {
@@ -26,6 +22,16 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            // dependency injection, scoped injection -> objects are same through the request
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services
+                .AddDbContext<MyMusicDbContext>(options => options
+                    .UseSqlServer(Configuration
+                        .GetConnectionString("Default"), 
+                        x => x
+                            .MigrationsAssembly("Data")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

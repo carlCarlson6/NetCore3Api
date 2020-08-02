@@ -8,7 +8,7 @@ namespace Core.Services
     {
         Task<IEnumerable<Artist>> GetAllArtist();
         Task<Artist> GetArtistById(int id);
-        Task<Music> CreateArtist(Artist newArtist);
+        Task<Artist> CreateArtist(Artist newArtist);
         Task UpdateArtist(Artist artistToBeUpdated, Artist artist);
         Task DeleteArtist(Artist artist);
     }
