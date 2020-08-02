@@ -1,12 +1,13 @@
 ﻿using Core.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace Core
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        IMusicRepository Musics { get; set; }
-        IArtistRepository Artist { get; set; }
+        IMusicRepository Musics { get; }
+        IArtistRepository Artist { get; }
         Task<int> CommitAsync();
     }
 }
